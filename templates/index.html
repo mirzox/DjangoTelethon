@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram verification code</title>
+</head>
+<style>
+  .container {
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cover_section {
+    display: flex;
+  }
+ .section4 {
+  margin: 10px 0px 10px 10px !important;
+ }
+  .block {
+    border: 1px solid rgb(198, 198, 198);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+.section1 {
+  padding-top: 10px;
+}
+  .block div {
+    margin: 10px 10px;
+  }
+  hr {
+    border: 0.5px solid rgb(95, 210, 255);
+  }
+  .section5 input {
+    width: 80px;
+    height: 30px;
+    border: 1px solid rgb(95, 210, 255);
+  }
+
+  .section3 input {
+    height: 30px;
+    border: 1px solid rgb(95, 210, 255);
+    padding: 0px 0px 0px 15px;
+  }
+  #id {
+    margin: 10px 10px 10px 0px !important;
+  }
+  .error_message{
+      color: red;
+  }
+  .resend_button{
+      display: none;
+  }
+</style>
+
+<body>
+  <div class="container">
+      <form method="post" action="">
+    {% csrf_token %}
+    <div class="block">
+      <div class="section1">
+        <b>Your code</b>
+        <hr>
+      </div>
+      <div class="section2">
+          We have sent an SMS with activation code to your account with name: {{ obj.name }} and phone: {{ obj.phone }}
+      </div>
+      <div class="section3">
+        <input type="text" placeholder="Code" name="code"  minlength="5" maxlength="5" required>
+      </div>
+      <div class="cover_section">
+        <div class="section4">We will call you in</div>
+        <div id="timer">0:59</div>
+{#        <form method="POST" action="">#}
+            <div id="resend_button" class="resend_button">
+{#                <input type="hidden" name="resend" value="1">#}
+                <input type="submit" value="Resend">
+            </div>
+{#        </form>#}
+      </div>
+      <div class="section5"><input type="submit" value="Next"></div>
+      <div>
+          <p class="error_message"><b>{{ error }}</b></p>
+      </div>
+    </div>
+      </form>
+
+  </div>
+</body>
+
+</html>
+<script>
+  var timerElement = document.getElementById("timer");
+  var buttonElement = document.getElementById("resend_button");
+  var timeRemaining = 59;
+
+  function updateTimer() {
+    timeRemaining--;
+    timerElement.textContent = `0:${timeRemaining}`;
+    if (timeRemaining <= 10) {
+      timerElement.textContent = timeRemaining;
+    }
+    if (timeRemaining <= 0) {
+      clearInterval(timer);
+      timerElement.textContent = " ";
+      buttonElement.style.display = "block";
+    }
+  }
+
+  var timer = setInterval(updateTimer, 1000);
+</script>

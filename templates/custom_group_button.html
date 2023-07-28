@@ -1,0 +1,28 @@
+{% extends 'admin/change_form.html' %}
+
+{% block submit_buttons_bottom %}
+    <div style="text-align: right; margin-bottom: 20px; ">
+        {% if original.pk %}
+        <a href="{% url 'custom_action' original.pk %}" class="button" style="margin-bottom: 20px; padding: 15px; font-size: 20px">
+            Reschedule messages
+        </a>
+        {% endif %}
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{#{% extends 'admin/change_form.html' %}#}
+{##}
+{#{% block submit_buttons_bottom %}#}
+{#    <div class="submit-row">#}
+{#        <div>#}
+{#            <input type="submit" value="{{ save_on_top_text }}" class="default button" name="_save" />#}
+{#            <a href="{% url 'your_model_custom_action' original.pk %}" class="button" style="margin-right: 5px;">#}
+{#                Custom Action#}
+{#            </a>#}
+{#        </div>#}
+{#        {% if show_delete_link %}#}
+{#            ...#}
+{#        {% endif %}#}
+{#    </div>#}
+{#{% endblock %}#}
